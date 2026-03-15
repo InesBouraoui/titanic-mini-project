@@ -47,3 +47,9 @@ preds = model.predict(X_val)
 f1 = f1_score(y_val, preds)
 
 print("Validation F1:", f1)
+
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_val, preds)
+print("Confusion matrix:")
+print(cm)
