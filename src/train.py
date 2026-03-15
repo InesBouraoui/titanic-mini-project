@@ -13,10 +13,18 @@ df = pd.read_csv("train.csv")
 df["Age"] = df["Age"].fillna(df["Age"].median())
 df["Fare"] = df["Fare"].fillna(df["Fare"].median())
 
+# feature engineering
+df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
+df["IsAlone"] = (df["FamilySize"] == 1).astype(int)
+
 # encode categorical
 df = pd.get_dummies(df, columns=["Sex", "Embarked"], drop_first=True)
 
-features = ["Pclass","Age","Fare","SibSp","Parch","Sex_male","Embarked_Q","Embarked_S"]
+features = [
+    "Pclass","Age","Fare","SibSp","Parch",
+    "FamilySize","IsAlone",
+    "Sex_male","Embarked_Q","Embarked_S"
+]
 X = df[features]
 y = df["Survived"]
 
